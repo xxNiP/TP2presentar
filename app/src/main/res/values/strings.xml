@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Productos</string>
+    <string name="Salir">Salir</string>
+    <string name="Refresh">Actualizar</string>
+    <string name="txtProductoNombre">Titulo</string>
+    <string name="txtProductoDescrip">Descripcion</string>
+    <string name="txtProductoPrecio">Precio</string>
+    <string name="imgProducto">imgProducto</string>
+    <string name="btnCompra">Comprar</string>
+    <string name="btnAtras">Atras</string>
+</resources>

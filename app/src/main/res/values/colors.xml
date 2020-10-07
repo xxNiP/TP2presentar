@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorNombreProducto">#FA000000</color>
+    <color name="colorDescripProducto">#C6B1AEAE</color>
+    <color name="colorPrecioProducto">#0344C5</color>
+
+
+</resources>
