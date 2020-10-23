@@ -6,6 +6,8 @@
     <color name="colorNombreProducto">#FA000000</color>
     <color name="colorDescripProducto">#C6B1AEAE</color>
     <color name="colorPrecioProducto">#0344C5</color>
+    <color name="colorFondoLogin">#28252B</color>
+
 
 
 </resources>

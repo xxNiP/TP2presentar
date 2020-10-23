@@ -9,6 +9,12 @@
         android:visible="true"
         app:showAsAction="always" />
     <item
+        android:id="@+id/Agregar"
+        android:icon="@drawable/ic_baseline_add_24"
+        android:title="Agregar"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/Refresh"
         android:enabled="true"
         android:icon="@android:drawable/stat_notify_sync"

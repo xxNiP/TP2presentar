@@ -34,12 +34,9 @@ public class DetalleActivity extends AppCompatActivity {
             case R.id.Salir:
                 finish();
                 return true;
-            case R.id.Refresh:
-                Toast.makeText(DetalleActivity.this, "Actualizar", Toast.LENGTH_SHORT).show();
 
-                return true;
             case R.id.Atras:
-                Toast.makeText(DetalleActivity.this, "Atras", Toast.LENGTH_SHORT).show();
+                finish();
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -50,8 +47,9 @@ public class DetalleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_detalle);
-        getSupportActionBar().setTitle("Producto");
+        getSupportActionBar().setTitle(" Detalle del Producto");
         findViews();
 
         Intent intent =getIntent();
@@ -60,7 +58,7 @@ public class DetalleActivity extends AppCompatActivity {
         txtProductoDescripD.setText(extras.getString("E_DESCRIPCION"));
         txtProductoNombreD.setText(extras.getString("E_NOMBRE"));
         txtProductoPrecioD.setText("$"+String.valueOf(extras.getFloat("E_PRECIO")));
-        Picasso.get().load("https://http2.mlstatic.com/D_NQ_NP_634540-MLA42609806883_072020-W.jpg"+extras.getInt("E_ID")).into(imgProductoD);
+        Picasso.get().load("https://i.pinimg.com/originals/a1/33/e3/a133e3e57c4d4e58e5a1728ddacaab4f.png").into(imgProductoD);
 
     }
 

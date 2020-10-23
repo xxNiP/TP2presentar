@@ -61,7 +61,7 @@ public class ProductoAdapter extends BaseAdapter {
         txtProductoNombre.setText(producto.getNombre());
         txtProductoDescrip.setText(producto.getDescripcion());
         txtProductoPrecio.setText(String.valueOf("$"+ producto.getPrecio()));
-        Picasso.get().load("https://img2.freepng.es/20180619/xae/kisspng-megaport-pc-gamer-amd-fx-6100-gaming-computer-desk-spec-5b28e48c9b4b21.4764759715294066046361.jpg").into(imgProducto);
+        Picasso.get().load("https://i.pinimg.com/originals/a1/33/e3/a133e3e57c4d4e58e5a1728ddacaab4f.png").into(imgProducto);
 
 
 

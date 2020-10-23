@@ -8,4 +8,12 @@
     <string name="imgProducto">imgProducto</string>
     <string name="btnCompra">Comprar</string>
     <string name="btnAtras">Atras</string>
+    <string name="edtEmail">Ingrese su e-mail</string>
+    <string name="edtPw">Ingrese su Contraseña</string>
+    <string name="swtRecordar">Recordarme</string>
+    <string name="btnIngresar">Ingresar</string>
+    <string name="imgLogin">ImgLogin</string>
+    <string name="swtEnvio">Ofrecer Envio</string>
+    <string name="btnImagen">Cargar Imagen</string>
+
 </resources>

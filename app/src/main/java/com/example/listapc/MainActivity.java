@@ -1,6 +1,7 @@
 package com.example.listapc;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,12 +18,13 @@ import com.example.listapc.models.Producto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
 
     private ListView lvProductos;
     private ProductoAdapter adaptador;
     private List<Producto> listaProductos;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -37,12 +39,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.Salir:
                 finish();
                 return true;
+            case R.id.Agregar:
+                Intent intent = new Intent(MainActivity.this, CargaProducto.class);
+
+                startActivity(intent);
+                return true;
             case R.id.Refresh:
-                Toast.makeText(MainActivity.this, "Actualizar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Actualizando", Toast.LENGTH_SHORT).show();
 
                 return true;
             case R.id.Atras:
-                Toast.makeText(MainActivity.this, "Atras", Toast.LENGTH_SHORT).show();
+                finish();
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -73,6 +80,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        swipeRefreshLayout = findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
+
 
     }
 
@@ -87,11 +104,9 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
 
-
-
-
-
     }
+
+
 
 
     private void cargarDatos(List<Producto> listaProductos) {
@@ -106,4 +121,5 @@ public class MainActivity extends AppCompatActivity {
         listaProductos.add(new Producto(8, "Monitor ViewSonic XG2401 led 24 negro 100V/240V", 91.299f, "Frecuencia de refresco: 144 Hz\n" + "Tipo de pantalla: LED\n" + "Tipo de resolución: Full HD\n" + "Resolución de la pantalla: 1920 px x 1080 px\n" + "Conexiones del monitor: DisplayPort, HDMI, USB\n" + "Tecnología de la pantalla: TN\n" + "Relación de aspecto: 16:9\n" + "Contraste: 1000:1\n" + "Ángulo de visión horizontal: 170°\n" + "Ángulo de visión vertical: 160°\n" + "Brillo: 350 cd/m²\n" + "Tiempo de respuesta: 1 ms\n" + "Con altavoces incorporados: Sí", 0));
 
     }
+
 }
