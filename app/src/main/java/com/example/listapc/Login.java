@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
+
+import com.squareup.picasso.Picasso;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnIngresar;
-    //private ImageView imgLogin;
+    private ImageView imgLogin;
     private EditText edtEmail, edtPw;
     private Switch swtRecordar;
 
@@ -45,7 +48,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         edtEmail = findViewById(R.id.edtEmail);
         edtPw = findViewById(R.id.edtPw);
         swtRecordar = findViewById(R.id.swtRecordar);
-        //imgLogin = findViewById(R.id.imgLogin);
+        imgLogin = findViewById(R.id.imgLogin);
+        Picasso.get().load("https://media.istockphoto.com/illustrations/login-icon-glassy-purple-round-button-illustration-id1169619637").into(imgLogin);
 
         btnIngresar.setOnClickListener(this);
     }

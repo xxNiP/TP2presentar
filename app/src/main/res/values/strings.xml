@@ -15,5 +15,7 @@
     <string name="imgLogin">ImgLogin</string>
     <string name="swtEnvio">Ofrecer Envio</string>
     <string name="btnImagen">Cargar Imagen</string>
+    <string name="btnPublicar">Publicar</string>
+    <string name="btnCancelar">Cancelar</string>
 
 </resources>
