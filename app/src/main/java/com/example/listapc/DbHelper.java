@@ -4,29 +4,36 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.Nullable;
+
 public class DbHelper extends SQLiteOpenHelper {
 
-    private final static String NAME_DB = "practica.sqlite";
+    private final static String NAME_DB = "virtualMercado.sqlite";
     private final static int VERSION_DB = 1;
 
-    private final String sqlCreate = "CREATE TABLE Empleados (idempleado INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "nombre TEXT NOT NULL, domicilio TEXT NOT NULL,telefono TEXT NOT NULL,email TEXT NOT NULL," +
-            "password TEXT NOT NULL,habilitado INTEGER NOT NULL DEFAULT 1,favorito INTEGER NOT NULL DEFAULT 0);";
+    private final String sqlCreateProducto = "CREATE TABLE Producto(id INTEGER NOT NULL, " +
+            "nombre	TEXT NOT NULL, " +
+            "precio	NUMERIC NOT NULL, " +
+            "descripcion	TEXT NOT NULL, " +
+            "activo	INTEGER NOT NULL DEFAULT 1, " +
+            "PRIMARY KEY(id AUTOINCREMENT)) ";
 
-    public DbHelper(Context context) {
+
+
+    public DbHelper(@Nullable Context context) {
         super(context, NAME_DB, null, VERSION_DB);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(sqlCreate);
+        db.execSQL(sqlCreateProducto);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //se elimina version anterior de tabla
-        db.execSQL("DROP TABLE IF EXISTS Empleados");
+        db.execSQL("DROP TABLE IF EXISTS Producto");
         //se crea nueva version de tabla
-        db.execSQL(sqlCreate);
+        db.execSQL(sqlCreateProducto);
     }
 }

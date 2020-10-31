@@ -23,9 +23,7 @@ public class CargaProducto extends AppCompatActivity implements View.OnClickList
     private Switch swtEnvio;
     private Button btnImagen, btnCancelar, btnPublicar;
 
-    private DbHelper dbHelper;
-    private SQLiteDatabase db;
-    private Context ctx;
+
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,85 +80,10 @@ public class CargaProducto extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.btnPublicar:
-                agregarItemSqlite();
+
                 break;
         }
 
     }
-
-    private void cargarItemSqlite(int idEmpleado) {
-        // obtenemos datos de SQLite
-        //String consulta = "SELECT * FROM Empleados WHERE idempleado="+ ID;
-
-        //seleccionamos todos los registros
-        Cursor cursor = db.rawQuery("SELECT * FROM Empleados WHERE idempleado=?", new String[]{String.valueOf(idEmpleado)});
-
-        //nos posicionamos al inicio del curso
-        if(cursor!=null && cursor.moveToLast()) {
-
-            //iteramos todos los registros del cursor y llenamos array con registros
-            edtCargaTitulo.setText(cursor.getString(cursor.getColumnIndex("titulo")));
-            edtCargaDescripcion.setText(cursor.getString(cursor.getColumnIndex("descripcion")));
-            edtCargaPrecio.setText(cursor.getString(cursor.getColumnIndex("domicilio")));
-            swtEnvio.setChecked(cursor.getInt(cursor.getColumnIndex("Ofrece Envio"))==1?true:false);
-
-        }else{
-            Toast.makeText(ctx, "No hay registros", Toast.LENGTH_SHORT).show();
-        }
-
-        db.close();
-
-    }
-
-
-    private void editarItemSqlite(){}
-
-    private void agregarItemSqlite(){
-
-        // verificamos que los valores sean validos
-        if(validarItems()){
-
-            ContentValues nuevoRegistro = new ContentValues();
-            nuevoRegistro.put("telefono", edtCargaTitulo.getText().toString());
-            nuevoRegistro.put("nombre",edtCargaDescripcion.getText().toString());
-            nuevoRegistro.put("email",edtCargaPrecio.getText().toString());
-            nuevoRegistro.put("Ofrecer Envio",swtEnvio.isChecked()?1:0);
-
-
-            //insertamos registro nuevo
-            db.insert("Empleados", null, nuevoRegistro); //MIRAR
-
-            Toast.makeText(ctx, "Registro Grabado OK", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(ctx, "Verifique datos inválidos", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private boolean validarItems(){
-        // TODO: completar validaciones necesarias pre-grabación del Producto
-        boolean valido=true;
-        // campo titulo
-        if(edtCargaTitulo.getText().toString().isEmpty()){
-            valido=false;
-            edtCargaTitulo.setError("Debe completar este campo");
-        }
-        // campo Descripcion
-        if(edtCargaDescripcion.getText().toString().isEmpty()){
-            valido=false;
-            edtCargaDescripcion.setError("Debe completar este campo");
-        }
-        // campo Precio
-        if(edtCargaPrecio.getText().toString().isEmpty()){
-            valido=false;
-            edtCargaPrecio.setError("Debe completar este campo");
-        }
-        return valido;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        db.close();
-    }
-
 }
+

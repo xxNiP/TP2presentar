@@ -3,7 +3,10 @@ package com.example.listapc;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +28,10 @@ public class MainActivity extends AppCompatActivity  {
     private ProductoAdapter adaptador;
     private List<Producto> listaProductos;
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private DbHelper dbHelper;
+    private SQLiteDatabase db;
+    private Context context;
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,10 +69,13 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.context = getApplicationContext();
+
         lvProductos = findViewById(R.id.lvProductos);
         List<Producto> listaProductos = new ArrayList<>();
 
-        this.cargarDatos(listaProductos);
+        //this.cargarDatos(listaProductos);
+        this.cargarDatosSqlite();
 
         adaptador = new ProductoAdapter(listaProductos);
 
@@ -84,6 +94,9 @@ public class MainActivity extends AppCompatActivity  {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+
+                cargarDatosSqlite();
+
 
                 swipeRefreshLayout.setRefreshing(false);
 
@@ -111,6 +124,8 @@ public class MainActivity extends AppCompatActivity  {
 
     private void cargarDatos(List<Producto> listaProductos) {
 
+        listaProductos.clear();
+
         listaProductos.add(new Producto(1, "PC Gamer completa", 52.999f, "MICRO: AMD RYZEN 5 3400\n" + "VIDEO: RX VEGA 11\n" + "MOTHER: A320 - DDR4 - USB 3.0 - SATA3\n" + "DISCO: 240GB SSD\n" + "MEMORIA RAM: 8GB 2400MHZ DDR4\n" + "GABINETE KIT: ATX (TECLADO MOUSE PARLANTES)", 0));
         listaProductos.add(new Producto(2, "CPU Gamer", 32.892f, "Procesador AMD A8 9600 Quad Core 3.1/3.4Ghz\n" + "Mother A320 con salida HDMI\n" + "Memoria 4GB DDR4\n" + "Disco Solido SSD 120Gb\n" + "Gabinete ATX Black tipo Sentey G28 o similar con fuente acorde al equipo\n" + "Placa de Video Radeon R7 Incluida en el procesador", 0));
         listaProductos.add(new Producto(3, "Mouse de juego Logitech Prodigy G Series G203 negro", 5.660f, "Sensor óptico.\n" + "Resolución: 8000dpi.\n" + "Contiene cable.\n" + "Cuenta con 6 botones.\n" + "Con luces.\n" + "Creado para llevar a todas partes.", 0));
@@ -119,6 +134,43 @@ public class MainActivity extends AppCompatActivity  {
         listaProductos.add(new Producto(6, "Teclado gamer inalámbrico Nisuta NSKBGZ61 QWERTY OUTEMU Brown español España de color negro con luz RGB", 7.999f, "Tipo mecánico.\n" + "Forma de las teclas: cilíndrica.\n" + "Al ser inálambrico vas a poder utilizarlo desde la ubicación que desees sin necesidad de conectar cables molestos.\n" + "Función anti-ghosting integrada, para evitar fallas al tocar varias teclas al mismo tiempo.\n" + "También es compatible con conector USB.\n" + "Indispensable para tu actividades diarias.\n" + "Imágenes ilustrativas.", 0));
         listaProductos.add(new Producto(7, "Monitor curvo Samsung C24RG50FQL led 23.5 negro 110V/220V", 41.297f, "Pantalla led.\n" + "Tamaño: 23.5\".\n" + "Curvo.\n" + "Tiene una resolución de 1920px-1080px.\n" + "Su brillo es de 250cd/m².\n" + "Tipos de conexión: DisplayPort, HDMI.", 0));
         listaProductos.add(new Producto(8, "Monitor ViewSonic XG2401 led 24 negro 100V/240V", 91.299f, "Frecuencia de refresco: 144 Hz\n" + "Tipo de pantalla: LED\n" + "Tipo de resolución: Full HD\n" + "Resolución de la pantalla: 1920 px x 1080 px\n" + "Conexiones del monitor: DisplayPort, HDMI, USB\n" + "Tecnología de la pantalla: TN\n" + "Relación de aspecto: 16:9\n" + "Contraste: 1000:1\n" + "Ángulo de visión horizontal: 170°\n" + "Ángulo de visión vertical: 160°\n" + "Brillo: 350 cd/m²\n" + "Tiempo de respuesta: 1 ms\n" + "Con altavoces incorporados: Sí", 0));
+
+    }
+
+    private void cargarDatosSqlite (){
+        dbHelper = new DbHelper(context);
+        db = dbHelper.getReadableDatabase();
+
+        //limpiar lista
+        listaProductos.clear();
+
+        //seleccion de registros
+        Cursor cursor = db.rawQuery("SELECT * FROM Productos WHERE activos=1", null);
+
+        //pos inicio
+
+        if(cursor.moveToFirst()){
+            //llenar array
+            while(cursor.isAfterLast()==false){
+
+                Producto producto = new Producto();
+                //recorer
+                producto.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                producto.setNombre((cursor.getString(cursor.getColumnIndex("nombre"))));
+                producto.setDescripcion(cursor.getString(cursor.getColumnIndex("descripcion")));
+                producto.setPrecio(cursor.getFloat(cursor.getColumnIndex("precio")));
+                //producto.setImagen(cursor.getInt(cursor.getColumnIndex("id")));
+
+                listaProductos.add(producto);
+
+                cursor.moveToNext();
+            }
+
+        }else{
+            Toast.makeText(context, "No hay registros", Toast.LENGTH_SHORT).show();
+        }
+        db.close();
+
 
     }
 
