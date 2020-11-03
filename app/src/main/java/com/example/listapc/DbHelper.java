@@ -11,12 +11,10 @@ public class DbHelper extends SQLiteOpenHelper {
     private final static String NAME_DB = "virtualMercado.sqlite";
     private final static int VERSION_DB = 1;
 
-    private final String sqlCreateProducto = "CREATE TABLE Producto(id INTEGER NOT NULL, " +
+    private final String sqlCreate = "CREATE TABLE Producto( id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "nombre	TEXT NOT NULL, " +
             "precio	NUMERIC NOT NULL, " +
-            "descripcion	TEXT NOT NULL, " +
-            "activo	INTEGER NOT NULL DEFAULT 1, " +
-            "PRIMARY KEY(id AUTOINCREMENT)) ";
+            "descripcion	TEXT NOT NULL); ";
 
 
 
@@ -26,7 +24,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(sqlCreateProducto);
+        db.execSQL(sqlCreate);
     }
 
     @Override
@@ -34,6 +32,6 @@ public class DbHelper extends SQLiteOpenHelper {
         //se elimina version anterior de tabla
         db.execSQL("DROP TABLE IF EXISTS Producto");
         //se crea nueva version de tabla
-        db.execSQL(sqlCreateProducto);
+        db.execSQL(sqlCreate);
     }
 }

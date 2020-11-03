@@ -72,7 +72,8 @@ public class MainActivity extends AppCompatActivity  {
         this.context = getApplicationContext();
 
         lvProductos = findViewById(R.id.lvProductos);
-        List<Producto> listaProductos = new ArrayList<>();
+
+        listaProductos = new ArrayList<Producto>();
 
         //this.cargarDatos(listaProductos);
         this.cargarDatosSqlite();
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-    private void cargarDatos(List<Producto> listaProductos) {
+    private void cargarDatos() {
 
         listaProductos.clear();
 
@@ -145,7 +146,7 @@ public class MainActivity extends AppCompatActivity  {
         listaProductos.clear();
 
         //seleccion de registros
-        Cursor cursor = db.rawQuery("SELECT * FROM Productos WHERE activos=1", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM Producto", null);
 
         //pos inicio
 
