@@ -23,6 +23,10 @@ public class CargaProducto extends AppCompatActivity implements View.OnClickList
     private Switch swtEnvio;
     private Button btnImagen, btnCancelar, btnPublicar;
 
+    private DbHelper dbHelper;
+    private SQLiteDatabase db;
+    private Context ctx;
+
 
 
 
@@ -52,10 +56,30 @@ public class CargaProducto extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carga_producto);
+
+        this.ctx = this.getApplicationContext();
+
+        Intent i = getIntent();
+
+        int id = i.getIntExtra("ID",0);
+
+        getSupportActionBar().setTitle("CARGAR PRODUCTO");
+
+        findViewsById();
+
+        //abrimos db en modo escritura
+        dbHelper = new DbHelper(this.ctx);
+        db = dbHelper.getWritableDatabase();
+
+        if(id!=0){
+            Toast.makeText(ctx, "seleccionó: "+ id, Toast.LENGTH_SHORT).show();
+            cargarItemSqlite(id);
+        }
+
     }
 
 
-    private void findViews() {
+    private void findViewsById() {
         edtCargaTitulo = findViewById(R.id.edtCargaTitulo);
         edtCargaDescripcion = findViewById(R.id.edtCargaDescripcion);
         edtCargaPrecio = findViewById(R.id.edtCargaPrecio);
@@ -73,17 +97,90 @@ public class CargaProducto extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        switch (v.getId()){
             case R.id.btnCancelar:
                 Intent intent = new Intent(CargaProducto.this, MainActivity.class);
                 startActivity(intent);
                 finish();
                 break;
             case R.id.btnPublicar:
-
+                agregarItemSqlite();
                 break;
         }
+    }
 
+    private void cargarItemSqlite(int idEmpleado) {
+        // obtenemos datos de SQLite
+        //String consulta = "SELECT * FROM Empleados WHERE idempleado="+ ID;
+
+        //seleccionamos todos los registros
+        Cursor cursor = db.rawQuery("SELECT * FROM Producto  WHERE idempleado=?", new String[]{String.valueOf(idEmpleado)});
+
+        //nos posicionamos al inicio del curso
+        if(cursor!=null && cursor.moveToLast()) {
+
+            //iteramos todos los registros del cursor y llenamos array con registros
+            edtCargaTitulo.setText(cursor.getString(cursor.getColumnIndex("nombre")));
+            edtCargaDescripcion.setText(cursor.getString(cursor.getColumnIndex("descripcion")));
+            edtCargaPrecio.setText(cursor.getString(cursor.getColumnIndex("precio")));
+
+
+
+        }else{
+            Toast.makeText(ctx, "No hay registros", Toast.LENGTH_SHORT).show();
+        }
+
+        db.close();
+
+    }
+
+
+    private void editarItemSqlite(){}
+
+    private void agregarItemSqlite(){
+
+        // verificamos que los valores sean validos
+        if(validarItems()){
+
+            ContentValues nuevoRegistro = new ContentValues();
+            nuevoRegistro.put("nombre", edtCargaTitulo.getText().toString());
+            nuevoRegistro.put("descripcion",edtCargaDescripcion.getText().toString());
+            nuevoRegistro.put("precio",edtCargaPrecio.getText().toString());
+
+            //insertamos registro nuevo
+            db.insert("Producto", null, nuevoRegistro);
+
+            Toast.makeText(ctx, "Registro Grabado OK", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(ctx, "Verifique datos inválidos", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean validarItems(){
+        // TODO: completar validaciones necesarias pre-grabación del empleado
+        boolean valido=true;
+        // campo nombre requerido
+        if(edtCargaTitulo.getText().toString().isEmpty()){
+            valido=false;
+            edtCargaTitulo.setError("Debe completar este campo");
+        }
+        // campo descripcion requerido
+        if(edtCargaDescripcion.getText().toString().isEmpty()){
+            valido=false;
+            edtCargaDescripcion.setError("Debe completar este campo");
+        }
+        // campo precio requerido
+        if(edtCargaPrecio.getText().toString().isEmpty()){
+            valido=false;
+            edtCargaPrecio.setError("Debe completar este campo");
+        }
+        return valido;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
     }
 }
 
