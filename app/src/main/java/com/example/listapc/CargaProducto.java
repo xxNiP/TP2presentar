@@ -99,12 +99,13 @@ public class CargaProducto extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnCancelar:
-                Intent intent = new Intent(CargaProducto.this, MainActivity.class);
-                startActivity(intent);
+
                 finish();
                 break;
             case R.id.btnPublicar:
                 agregarItemSqlite();
+                Intent intent = new Intent(CargaProducto.this, MainActivity.class);
+                startActivity(intent);
                 break;
         }
     }
