@@ -99,23 +99,24 @@ public class CargaProducto extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnCancelar:
+                Intent intent = new Intent(CargaProducto.this, MainActivity.class);
+                startActivity(intent);
 
                 finish();
                 break;
             case R.id.btnPublicar:
                 agregarItemSqlite();
-                Intent intent = new Intent(CargaProducto.this, MainActivity.class);
-                startActivity(intent);
+
                 break;
         }
     }
 
-    private void cargarItemSqlite(int idEmpleado) {
+    private void cargarItemSqlite(int idProducto) {
         // obtenemos datos de SQLite
         //String consulta = "SELECT * FROM Empleados WHERE idempleado="+ ID;
 
         //seleccionamos todos los registros
-        Cursor cursor = db.rawQuery("SELECT * FROM Producto  WHERE idempleado=?", new String[]{String.valueOf(idEmpleado)});
+        Cursor cursor = db.rawQuery("SELECT * FROM Producto  WHERE idproducto=?", new String[]{String.valueOf(idProducto)});
 
         //nos posicionamos al inicio del curso
         if(cursor!=null && cursor.moveToLast()) {
@@ -136,7 +137,6 @@ public class CargaProducto extends AppCompatActivity implements View.OnClickList
     }
 
 
-    private void editarItemSqlite(){}
 
     private void agregarItemSqlite(){
 

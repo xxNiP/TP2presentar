@@ -49,7 +49,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         edtPw = findViewById(R.id.edtPw);
         swtRecordar = findViewById(R.id.swtRecordar);
         imgLogin = findViewById(R.id.imgLogin);
-        Picasso.get().load("https://media.istockphoto.com/illustrations/login-icon-glassy-purple-round-button-illustration-id1169619637").into(imgLogin);
+        Picasso.get().load("https://revistadigital.inesem.es/informatica-y-tics/files/2016/10/Sin-t%C3%ADtulo-1.png").into(imgLogin);
 
         btnIngresar.setOnClickListener(this);
     }

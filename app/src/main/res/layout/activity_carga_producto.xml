@@ -7,6 +7,20 @@
     android:background="@color/colorFondoLogin"
     tools:context=".CargaProducto">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="15dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="395dp" />
+
     <Switch
         android:id="@+id/swtEnvio"
         android:layout_width="wrap_content"
@@ -22,51 +36,53 @@
 
     <EditText
         android:id="@+id/edtCargaTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_width="387dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="64dp"
+        android:autofillHints=""
         android:ems="10"
+        android:hint="@string/txtProductoNombre"
         android:inputType="textPersonName"
-        android:text="@string/txtProductoNombre"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edtCargaDescripcion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_width="379dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="32dp"
+        android:autofillHints=""
         android:ems="10"
+        android:hint="@string/txtProductoDescrip"
         android:inputType="textPersonName"
-        android:text="@string/txtProductoDescrip"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtCargaTitulo"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/edtCargaTitulo" />
 
     <EditText
         android:id="@+id/edtCargaPrecio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_width="392dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="36dp"
         android:autofillHints=""
         android:ems="10"
+        android:hint="@string/txtProductoPrecio"
         android:inputType="numberDecimal"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtCargaDescripcion"
-        tools:text="@string/txtProductoPrecio" />
+        app:layout_constraintTop_toBottomOf="@+id/edtCargaDescripcion" />
 
     <Button
         android:id="@+id/btnImagen"

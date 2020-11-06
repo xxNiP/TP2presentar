@@ -3,6 +3,7 @@ package com.example.listapc;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,8 +32,10 @@ public class DetalleActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.Salir:
-                finish();
+            case R.id.Agregar:
+                Intent intent1 = new Intent(DetalleActivity.this, CargaProducto.class);
+
+                startActivity(intent1);
                 return true;
 
             case R.id.Atras:
@@ -75,8 +78,6 @@ public class DetalleActivity extends AppCompatActivity {
                 Toast.makeText(DetalleActivity.this, "Compra", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
+
 }
