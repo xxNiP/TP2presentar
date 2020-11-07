@@ -44,6 +44,8 @@ public class CargaProducto extends AppCompatActivity implements View.OnClickList
                 return true;
 
             case R.id.Atras:
+                Intent intent = new Intent(CargaProducto.this, MainActivity.class);
+                startActivity(intent);
                 finish();
 
             default:
@@ -105,6 +107,7 @@ public class CargaProducto extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.btnPublicar:
+
                 agregarItemSqlite();
 
                 break;
